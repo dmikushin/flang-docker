@@ -31,6 +31,20 @@ services:
     depends_on:
       classic-flang-llvm-project:
         condition: service_completed_successfully
+  openmp-offload-example:
+    container_name: openmp-offload-example
+    image: openmp-offload-example
+    build:
+      context: ./openmp-offload-example
+      dockerfile: Dockerfile
+    command: [ "/openmp-offload-example.sh" ]
+    volumes:
+      - ./classic-flang/install:/opt/llvm:ro
+      - ./openmp-offload-example/src:/openmp-offload-example/src
+      - ./openmp-offload-example/build:/openmp-offload-example/build
+    depends_on:
+      classic-flang:
+        condition: service_completed_successfully
 
 networks:
   tunnels:
