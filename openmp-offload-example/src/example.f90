@@ -28,7 +28,7 @@ program jacobi
   !$omp target map(tofrom:u)
   do iter = 1, niter
     ! Stencil update 1
-    !!$omp parallel do collapse(2)
+    !$omp parallel do collapse(2)
     do j = 2, ny - 1
       do i = 2, nx - 1
         unew(i, j) = factor * (u(i + 1, j) - 2.0 * u(i, j) + u(i - 1, j) + &
